@@ -14,8 +14,8 @@ namespace UEK_VisualizeScheduleV2
         public static readonly string CONFIG_PATH = "uekvconfig.json";
         public static readonly string DATA_PATH = "data.json";
         public static readonly string DATA_URL = "https://e-uczelnia.ue.katowice.pl/wsrest/rest/phz/harmonogram/zajecia?_dc=1552301604786&idGrupa=41200&idNauczyciel=0&idJednostkaPanelJednostka=0&dataOd=&dataDo=&widok=STUDENT&authUzytkownikId=0&page=1&start=0&limit=1000";
-
         #endregion
+
         #region Instances
         public static List<CourseMain> ALL_COURSE_MAIN = new List<CourseMain>();
         public static List<CourseEvent> ALL_COURSE_EVENT = new List<CourseEvent>();
@@ -28,17 +28,19 @@ namespace UEK_VisualizeScheduleV2
         public static DateTime SELECTED_MAX;
         public static Dictionary<int, Dictionary<int, RichTextBox>> ALL_CALENDAR_PANE = new Dictionary<int, Dictionary<int, RichTextBox>>();
         public static string ABBRV_INFORMATION;
-
         #endregion
+
         #region Helpers
         public static string FormatDTDate(DateTime dt)
         {
             return dt.ToString("yyyy-MM-dd");
         }
+
         public static string FormatDTTime(DateTime dt)
         {
             return dt.ToString("HH:mm");
         }
+
         public static void SerializeCourseData(CourseJSON c)
         {
             LectureType lt = new LectureType(Library.SplitRawCourse(c.GetSubject())[1]);
@@ -62,11 +64,13 @@ namespace UEK_VisualizeScheduleV2
                 ALL_COURSE_EVENT.Add(ce);
             }
         }
+
         private static byte[] GetHash(string inputString)
         {
             HashAlgorithm algorithm = SHA256.Create();
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
+
         public static string GetHashString(string inputString)
         {
             StringBuilder sb = new StringBuilder();
@@ -75,6 +79,7 @@ namespace UEK_VisualizeScheduleV2
 
             return sb.ToString();
         }
+
         public static string[] SplitRawCourse(string fullCourseName) { 
             string[] a = fullCourseName.Split(new char[] { '-' });
             string ret_a, ret_b;
@@ -94,6 +99,7 @@ namespace UEK_VisualizeScheduleV2
             }
             return new string[] { ret_a, ret_b };
         }
+
         public static bool GenerateCourseMainAbbrv(CourseMain cm)
         {
             if (!Library.COURSE_MAIN_ABBRV.Keys.Contains(cm))
@@ -120,6 +126,7 @@ namespace UEK_VisualizeScheduleV2
             }
             return false;
         }
+
         public static int CDayOfWeek(DayOfWeek day)
         {
             switch (day)

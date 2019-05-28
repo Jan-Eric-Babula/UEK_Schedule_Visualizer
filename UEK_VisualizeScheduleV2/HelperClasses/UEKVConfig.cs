@@ -26,19 +26,6 @@ namespace UEK_VisualizeScheduleV2
             return this.lastUpdated;
         }
 
-        /*
-        private string[] subjects;
-        public string[] Subjects {
-            get
-            {
-                return this.subjects;
-            }
-            set
-            {
-                this.subjects = value;
-            }
-        }
-        */
         private List<string> subjects;
         public List<string> Subjects
         {

@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 
 namespace UEK_VisualizeScheduleV2
 {
+    //TODO Add hash creation override
     class CourseMain : IComparable
     {
         public string Subject { get; }

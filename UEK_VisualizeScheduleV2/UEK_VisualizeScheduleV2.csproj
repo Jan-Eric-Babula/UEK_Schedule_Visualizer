@@ -76,7 +76,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HelperClasses\Course.cs" />
     <Compile Include="CourseObjs\CourseEvent.cs" />
     <Compile Include="CourseObjs\CourseJSON.cs" />
     <Compile Include="CourseObjs\CourseMain.cs" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace UEK_VisualizeScheduleV2
 {
+    //TODO Add hash creation override
     class LectureType
     {
         public string Name { get; }

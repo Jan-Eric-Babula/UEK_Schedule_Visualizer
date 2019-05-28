@@ -13,7 +13,6 @@ namespace UEK_VisualizeScheduleV2
     public partial class FormInfo : Form
     {
         private static FormInfo instance = null;
-        //Label + 36 = Form
 
         public FormInfo()
         {
