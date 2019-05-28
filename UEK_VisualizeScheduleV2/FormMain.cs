@@ -175,7 +175,7 @@ namespace UEK_VisualizeScheduleV2
                 info += $"\n{c.StartS} to {c.EndS}; at {c.Location}: {c.Course.Subject} ({c.Type.Name} by {c.Teacher})";
             }
 
-            FormInfo.GetInstance().AdjustForm(info);
+            FormInfo.Instance().AdjustForm(info);
 
         }
 

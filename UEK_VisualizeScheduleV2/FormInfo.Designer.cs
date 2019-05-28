@@ -36,11 +36,13 @@
             // label_test
             // 
             this.label_test.AutoSize = true;
+            this.label_test.Enabled = false;
             this.label_test.Location = new System.Drawing.Point(12, 9);
             this.label_test.Name = "label_test";
             this.label_test.Size = new System.Drawing.Size(100, 13);
             this.label_test.TabIndex = 0;
             this.label_test.Text = "<Width Test Label>";
+            this.label_test.Visible = false;
             // 
             // richTextBox_info
             // 
@@ -71,8 +73,8 @@
             this.CancelButton = this.button_close;
             this.ClientSize = new System.Drawing.Size(120, 155);
             this.ControlBox = false;
-            this.Controls.Add(this.button_close);
             this.Controls.Add(this.richTextBox_info);
+            this.Controls.Add(this.button_close);
             this.Controls.Add(this.label_test);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

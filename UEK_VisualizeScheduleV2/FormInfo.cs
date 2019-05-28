@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace UEK_VisualizeScheduleV2
@@ -17,32 +10,31 @@ namespace UEK_VisualizeScheduleV2
         public FormInfo()
         {
             InitializeComponent();
-            this.label_test.Visible = false;
         }
 
-        public void AdjustForm(string inp)
+        public void AdjustForm(string input)
         {
 
-            string[] lines = inp.Split(new char[] { '\n' });
-            string max = "";
-            foreach(string s in lines)
+            string[] inputLines = input.Split(new char[] { '\n' });
+            string linesLongest = "";
+            foreach(string line in inputLines)
             {
-                if(s.Length > max.Length)
+                if(line.Length > linesLongest.Length)
                 {
-                    max = s;
+                    linesLongest = line;
                 }
             }
 
-            this.label_test.Text = max;
+            this.label_test.Text = linesLongest;
             this.Refresh();
 
             this.Width = this.label_test.Width + 36 + 20;
             this.richTextBox_info.Width = this.label_test.Width+20;
 
-            this.richTextBox_info.Text = inp;
+            this.richTextBox_info.Text = input;
         }
 
-        public static FormInfo GetInstance()
+        public static FormInfo Instance()
         {
             if (FormInfo.instance == null)
             {
@@ -55,8 +47,8 @@ namespace UEK_VisualizeScheduleV2
 
         private void button_close_Click(object sender, EventArgs e)
         {
-            FormInfo.GetInstance().Hide();
-            FormInfo.GetInstance().Dispose();
+            FormInfo.Instance().Hide();
+            FormInfo.Instance().Dispose();
             FormInfo.instance = null;
         }
     }
