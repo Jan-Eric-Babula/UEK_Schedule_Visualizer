@@ -12,6 +12,7 @@ using System.Threading;
 
 namespace UEK_VisualizeScheduleV2
 {
+    //TODO Add documentation
     public partial class FormMain : Form
     {
         public FormMain()
