@@ -1,26 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
 
 namespace UEK_VisualizeScheduleV2
 {
     //TODO Add hash creation override
+    /// <summary>
+    /// Class that represents an entire subject.
+    /// </summary>
     class CourseMain : IComparable
     {
-        public string Subject { get; }
-        public string SubjectL { get; }
-        public string Hash { get; }
+        #region Properties
 
+        ///<value><c>Subject</c> is the subject name.</value>
+        public string Subject { get; }
+
+        ///<value><c>SubjectL</c> is the subject name with lowercase letters.</value>
+        public string SubjectL { get; }
+
+        ///<value><c>Hash</c> is the individual hash for the instance.</value>
+        public string Hash { get; }
+        
+        #endregion
+
+        #region Constructor(s)
+
+        /// <summary>
+        /// Creates an instance of <c>CourseMain</c>.
+        /// </summary>
+        /// <param name="subject">Subject name.</param>
         public CourseMain(string subject)
         {
             this.Subject = subject.Trim();
             this.SubjectL = this.Subject.ToLower();
             this.Hash = Library.GetHashString(this.SubjectL);
         }
-        
+
+        #endregion
+
+        #region IComparable
+
+        /// <summary>
+        /// Evaluates if instance and a given object are equal.
+        /// </summary>
+        /// <param name="obj">Object to compare to.</param>
+        /// <returns>If the objects are equal.</returns>
         public override bool Equals(object obj)
         {
             if(obj.GetType() == this.GetType()){
@@ -29,6 +52,11 @@ namespace UEK_VisualizeScheduleV2
             return false;
         }
 
+        /// <summary>
+        /// Compares the instance to a given object.
+        /// </summary>
+        /// <param name="obj">Object to compare to.</param>
+        /// <returns>If the given object is greater, equal or lesser.</returns>
         public int CompareTo(object obj)
         {
             if(obj.GetType() == this.GetType())
@@ -54,5 +82,7 @@ namespace UEK_VisualizeScheduleV2
             }
             return 0;
         }
+
+        #endregion
     }
 }
