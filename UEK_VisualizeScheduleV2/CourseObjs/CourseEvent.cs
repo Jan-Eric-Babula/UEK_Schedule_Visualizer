@@ -112,10 +112,13 @@ namespace UEK_VisualizeScheduleV2
 
         #endregion
 
-        #region IComparable
+        #region Functions
+
+        #region Methods
 
         /// <summary>
         /// Compares the instance of the class to a given object.
+        /// Overrides original function to use internal <c>Hash</c> property.
         /// </summary>
         /// <param name="obj">Object to compare to.</param>
         /// <returns>Returns <c>true</c> if the objects are equal.</returns>
@@ -127,7 +130,9 @@ namespace UEK_VisualizeScheduleV2
             }
             return false;
         }
-        
+
+        #region IComparable
+
         /// <summary>
         /// Compares the instance of the class to a given object.
         /// </summary>
@@ -173,6 +178,10 @@ namespace UEK_VisualizeScheduleV2
             }
             return 0;
         }
+
+        #endregion
+
+        #endregion
 
         #endregion
     }

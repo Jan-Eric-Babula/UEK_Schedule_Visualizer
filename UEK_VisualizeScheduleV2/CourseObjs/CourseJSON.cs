@@ -36,7 +36,9 @@ namespace UEK_VisualizeScheduleV2
 
         #endregion
 
-        #region English Methods
+        #region Functions
+
+        #region Methods
 
         /// <summary>
         /// Engish translation of property for easier use.
@@ -100,6 +102,8 @@ namespace UEK_VisualizeScheduleV2
         {
             return this.lokalizacja;
         }
+
+        #endregion
 
         #endregion
     }
