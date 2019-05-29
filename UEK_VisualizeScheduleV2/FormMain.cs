@@ -212,8 +212,11 @@ namespace UEK_VisualizeScheduleV2
 
         private void DownloadRawData()
         {
-            //TODO Check if file exsists
-            File.Delete(Library.DATA_PATH);
+            if (File.Exists(Library.DATA_PATH))
+            {
+                File.Delete(Library.DATA_PATH);
+            }
+            
             using (WebClient c = new WebClient())
             {
                 c.DownloadFile(Library.DATA_URL, Library.DATA_PATH);
