@@ -86,8 +86,18 @@ namespace UEK_VisualizeScheduleV2
         #endregion
 
         #region Constructor(s)
-
-        //TODO Add constructor documentation
+        
+        /// <summary>
+        /// Creates an instance of <c>CourseEvent</c>.
+        /// </summary>
+        /// <param name="date">Date of the course.</param>
+        /// <param name="start">Starting time of the course.</param>
+        /// <param name="end">Ending time of the course.</param>
+        /// <param name="room">Room designation of the course.</param>
+        /// <param name="building">Building designation of the course.</param>
+        /// <param name="teacher">The name of the teacher.</param>
+        /// <param name="cm">Reference to the subject.</param>
+        /// <param name="lt">Reference to the type of lecture.</param>
         public CourseEvent(string date, string start, string end, string room, string building, string teacher, CourseMain cm, LectureType lt)
         {
             this.Start = DateTime.Parse($"{date.Trim()} {start.Trim()}");
@@ -117,13 +127,12 @@ namespace UEK_VisualizeScheduleV2
             }
             return false;
         }
-
-        //TODO Add return description
+        
         /// <summary>
         /// Compares the instance of the class to a given object.
         /// </summary>
         /// <param name="obj">Object to compare to.</param>
-        /// <returns></returns>
+        /// <returns>If the given object is greater, equal or lesser.</returns>
         public int CompareTo(object obj)
         {
             if (obj.GetType() == this.GetType()) {
