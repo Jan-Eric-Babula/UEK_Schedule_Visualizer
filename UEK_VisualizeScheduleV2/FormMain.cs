@@ -30,11 +30,15 @@ namespace UEK_VisualizeScheduleV2
             if (File.Exists(Library.DATA_PATH))
             {
                 List<CourseJSON> lcjson = this.LoadRawCourseData();
-                this.SerializeRawData(lcjson);
-                this.GenerateCourseAbbreviations();
-                this.RefreshProfileList();
-                this.FindBoundries();
-                this.CheckBoundries();
+                if (lcjson != null)
+                {
+                    this.SerializeRawData(lcjson);
+                    this.GenerateCourseAbbreviations();
+                    this.RefreshProfileList();
+                    this.FindBoundries();
+                    this.CheckBoundries();    
+                }
+                
             }
         }
 
