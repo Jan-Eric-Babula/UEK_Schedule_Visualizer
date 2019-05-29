@@ -6,15 +6,25 @@ namespace UEK_VisualizeScheduleV2
     public partial class FormInfo : Form
     {
         #region Instances
-        //TODO Move main instance of FormInfo to Library
+
+        /// <summary>
+        /// Holds main instance of <c>FormInfo</c> class.
+        /// </summary>
         private static FormInfo instance = null;
 
         #endregion
+
         #region Constructors
+
+        /// <summary>
+        /// Auto generated.
+        /// Initialized GUI components.
+        /// </summary>
         public FormInfo()
         {
             InitializeComponent();
         }
+
         #endregion
 
         #region Functions
