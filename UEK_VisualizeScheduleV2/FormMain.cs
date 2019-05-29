@@ -41,6 +41,7 @@ namespace UEK_VisualizeScheduleV2
                 }
                 else
                 {
+                    //TODO Create new "LoadData" (or similar) method
                     this.SerializeRawData(lcjson);
                     this.GenerateCourseAbbreviations();
                     this.RefreshProfileList();
@@ -79,6 +80,7 @@ namespace UEK_VisualizeScheduleV2
             this.richTextBox_Header.SelectionAlignment = HorizontalAlignment.Center;
         }
 
+        //TODO Move to Libary.cs
         private void FindBoundries()
         {
             DateTime min, max;
@@ -98,6 +100,7 @@ namespace UEK_VisualizeScheduleV2
             Library.SELECTED_MAX = max;
         }
 
+        //TODO Move to Library.cs
         private void CheckBoundries()
         {
             if ((Library.SELECTED_YEAR < Library.SELECTED_MIN.Year) || ((Library.SELECTED_YEAR >= Library.SELECTED_MIN.Year) && (Library.SELECTED_MONTH < Library.SELECTED_MIN.Month)))
@@ -112,7 +115,7 @@ namespace UEK_VisualizeScheduleV2
             }
         }
 
-
+        //TODO Remove legacy references & comments
         /*
         private void LoadConfigCourseSelection()
         {
@@ -127,6 +130,7 @@ namespace UEK_VisualizeScheduleV2
 
         #region Config
 
+        //TODO Move method to UEKConfig.cs
         private void LoadConfigJSON()
         {
             if (!File.Exists(Library.CONFIG_PATH))
@@ -138,11 +142,13 @@ namespace UEK_VisualizeScheduleV2
             UEKVConfig.InitiateInstance(c);
         }
 
+        //TODO Move method to UEKConfig.cs
         private UEKVConfig GetConfigJSON()
         {
             return UEKVConfig.GetInstance();
         }
 
+        //TODO Move method to UEKConfig.cs
         private void SaveConfigJSON()
         {
             if (File.Exists(Library.CONFIG_PATH)) { File.Delete(Library.CONFIG_PATH); }
@@ -154,7 +160,8 @@ namespace UEK_VisualizeScheduleV2
 
         #region Update
 
-        //TODO Rework update method GUI vs non-GUI; non-GUI like in constructur
+        //TODO Rework update method GUI vs non-GUI; non-GUI like in constructur (see TODO in constructor)
+        //TODO clarify/segment exception handling
         private void UpdateData(bool slow = true)
         {
             this.Enabled = false;
@@ -213,6 +220,7 @@ namespace UEK_VisualizeScheduleV2
             this.Enabled = true;
         }
 
+        //TODO Check if method should be moved
         private void DownloadRawData()
         {
             if (File.Exists(Library.DATA_PATH))
@@ -226,6 +234,8 @@ namespace UEK_VisualizeScheduleV2
             }
         }
 
+        //TODO Check if method should be moved
+        //TODO Rework exception
         private List<CourseJSON> LoadRawCourseData()
         {
             List<CourseJSON> ret = new List<CourseJSON>();
@@ -249,6 +259,7 @@ namespace UEK_VisualizeScheduleV2
             return ret;
         }
 
+        //TODO Check if method should be moved
         private void SerializeRawData(List<CourseJSON> courseJSONs)
         {
             foreach (CourseJSON cjson in courseJSONs)
@@ -257,6 +268,7 @@ namespace UEK_VisualizeScheduleV2
             }
         }
 
+        //TODO Check if method should be moved
         private void GenerateCourseAbbreviations()
         {
             Library.COURSE_MAIN_ABBRV = new Dictionary<CourseMain, string>();
@@ -356,6 +368,7 @@ namespace UEK_VisualizeScheduleV2
             Library.ALL_CALENDAR_PANE[5].Add(6, this.richTextBox_5_6);
         }
 
+        //TODO Rework method (too long)
         private void RefreshCalendar()
         {
             this.ClearCalendarPanes();
@@ -426,6 +439,7 @@ namespace UEK_VisualizeScheduleV2
             } while (Library.ALL_CALENDAR_PANE[p][k].Text == "");
         }
 
+        //TODO Check if method should be moved
         private void RefreshAbbreviationInfo()
         {
             Library.ABBRV_INFORMATION = "Abbreviations:";
@@ -439,6 +453,8 @@ namespace UEK_VisualizeScheduleV2
 
         }
 
+        //TODO Rework method (unnecessary calculation/variables)
+        //TODO Check if method should be moved
         private bool IsDailyConflict(List<CourseEvent> cList)
         {
             int confCount = 0;
@@ -472,6 +488,7 @@ namespace UEK_VisualizeScheduleV2
             return confCount > 0;
         }
 
+        //TODO Check if method should be moved
         private List<CourseEvent> GetCoursesForDay(DateTime dt)
         {
             List<CourseEvent> ret = new List<CourseEvent>();
@@ -517,6 +534,7 @@ namespace UEK_VisualizeScheduleV2
 
         #region ElementEvents
 
+        //TODO Reowkr (unnecessary calculations/repetitions)
         private void tabPage_Schedule_Enter(object sender, EventArgs e)
         {
             this.RefreshAbbreviationInfo();
@@ -525,6 +543,7 @@ namespace UEK_VisualizeScheduleV2
             this.RefreshCalendar();
         }
 
+        //TODO Check, if constructor moved to here/here moved to constructor
         private void FormMain_Load(object sender, EventArgs e)
         {
             this.LoadConfigJSON();
@@ -579,6 +598,7 @@ namespace UEK_VisualizeScheduleV2
             this.RefreshCalendar();
         }
 
+        //TODO Rework (don't assume type)
         private void calendar_double_click(object sender, MouseEventArgs e)
         {
             RichTextBox rtb = (RichTextBox)sender;

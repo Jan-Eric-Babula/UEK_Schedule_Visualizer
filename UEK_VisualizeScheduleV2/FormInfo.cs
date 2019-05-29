@@ -48,6 +48,7 @@ namespace UEK_VisualizeScheduleV2
 
         #region Methods
 
+        //TODO Add refresh
         /// <summary>
         /// Resizes the width of the form according to the length of the given string.
         /// </summary>
