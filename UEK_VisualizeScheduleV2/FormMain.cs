@@ -112,6 +112,8 @@ namespace UEK_VisualizeScheduleV2
             }
         }
 
+
+        /*
         private void LoadConfigCourseSelection()
         {
             foreach (string s in UEKVConfig.GetInstance().Subjects)
@@ -121,7 +123,7 @@ namespace UEK_VisualizeScheduleV2
                 this.checkedListBox_Profile.SetItemChecked(loc, true);
             }
         }
-
+        */
 
         #region Config
 
@@ -263,6 +265,7 @@ namespace UEK_VisualizeScheduleV2
             }
         }
 
+        //TODO Check, if exception check has to be performed in steps prior
         private void RefreshProfileList()
         {
             this.checkedListBox_Profile.Items.Clear();
@@ -599,8 +602,7 @@ namespace UEK_VisualizeScheduleV2
         {
             this.UpdateData();
         }
-
-        //TODO Redo load of course selection (possible unnesessary load)
+        
         private void tabControlMain_Deselecting(object sender, TabControlCancelEventArgs e)
         {
             if (this.tabControlMain.SelectedTab.Name == "tabPage_Update")
@@ -617,10 +619,12 @@ namespace UEK_VisualizeScheduleV2
                     MessageBox.Show("Warning!\nNo data file was found!\n\nPlease update your data now to use the tool!");
                     e.Cancel = true;
                 }
+                /*
                 else
                 {
                     this.LoadConfigCourseSelection();
                 }
+                */
             }
         }
 
