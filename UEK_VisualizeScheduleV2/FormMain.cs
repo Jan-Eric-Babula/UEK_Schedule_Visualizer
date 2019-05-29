@@ -154,6 +154,7 @@ namespace UEK_VisualizeScheduleV2
 
         #region Update
 
+        //TODO Rework update method GUI vs non-GUI; non-GUI like in constructur
         private void UpdateData(bool slow = true)
         {
             this.Enabled = false;
