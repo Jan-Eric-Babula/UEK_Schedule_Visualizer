@@ -29,9 +29,12 @@ namespace UEK_VisualizeScheduleV2
 
             if (File.Exists(Library.DATA_PATH))
             {
-                //TODO Add else for handling of currupt Library file
                 List<CourseJSON> lcjson = this.LoadRawCourseData();
-                if (lcjson != null)
+                if (lcjson == null)
+                {
+                    this.UpdateData(false);
+                }
+                else
                 {
                     this.SerializeRawData(lcjson);
                     this.GenerateCourseAbbreviations();
