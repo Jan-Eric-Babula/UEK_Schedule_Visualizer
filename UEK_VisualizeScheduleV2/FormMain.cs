@@ -13,8 +13,12 @@ using System.Threading;
 namespace UEK_VisualizeScheduleV2
 {
     //TODO Add documentation
+    /// <summary>
+    /// Main Form for UEK Schedule Visualizer.
+    /// </summary>
     public partial class FormMain : Form
     {
+        #region Constructors
         public FormMain()
         {
             Library.SELECTED_MONTH = DateTime.Now.Month;
@@ -46,13 +50,17 @@ namespace UEK_VisualizeScheduleV2
                 
             }
         }
+        #endregion
 
-        
+        #region Functions
+
+        #region Methods
+
         private void ClearCalendarPanes()
         {
-            foreach(int r in Library.ALL_CALENDAR_PANE.Keys)
+            foreach (int r in Library.ALL_CALENDAR_PANE.Keys)
             {
-                foreach(int c in Library.ALL_CALENDAR_PANE[r].Keys)
+                foreach (int c in Library.ALL_CALENDAR_PANE[r].Keys)
                 {
                     Library.ALL_CALENDAR_PANE[r][c].Text = "";
                     Library.ALL_CALENDAR_PANE[r][c].BackColor = Control.DefaultBackColor;
@@ -75,13 +83,13 @@ namespace UEK_VisualizeScheduleV2
         {
             DateTime min, max;
             min = Library.ALL_COURSE_EVENT[0].Date; max = Library.ALL_COURSE_EVENT[0].Date;
-            foreach(CourseEvent ce in Library.ALL_COURSE_EVENT)
+            foreach (CourseEvent ce in Library.ALL_COURSE_EVENT)
             {
-                if(ce.Date < min)
+                if (ce.Date < min)
                 {
                     min = ce.Date;
                 }
-                if(ce.Date > max)
+                if (ce.Date > max)
                 {
                     max = ce.Date;
                 }
@@ -92,135 +100,33 @@ namespace UEK_VisualizeScheduleV2
 
         private void CheckBoundries()
         {
-            if((Library.SELECTED_YEAR < Library.SELECTED_MIN.Year) || ((Library.SELECTED_YEAR >= Library.SELECTED_MIN.Year) && (Library.SELECTED_MONTH < Library.SELECTED_MIN.Month)))
+            if ((Library.SELECTED_YEAR < Library.SELECTED_MIN.Year) || ((Library.SELECTED_YEAR >= Library.SELECTED_MIN.Year) && (Library.SELECTED_MONTH < Library.SELECTED_MIN.Month)))
             {
                 Library.SELECTED_MONTH = Library.SELECTED_MIN.Month;
                 Library.SELECTED_YEAR = Library.SELECTED_MIN.Year;
             }
-            if((Library.SELECTED_YEAR > Library.SELECTED_MAX.Year) || ( (Library.SELECTED_YEAR <= Library.SELECTED_MAX.Year) && (Library.SELECTED_MONTH > Library.SELECTED_MAX.Month)))
+            if ((Library.SELECTED_YEAR > Library.SELECTED_MAX.Year) || ((Library.SELECTED_YEAR <= Library.SELECTED_MAX.Year) && (Library.SELECTED_MONTH > Library.SELECTED_MAX.Month)))
             {
                 Library.SELECTED_MONTH = Library.SELECTED_MAX.Month;
                 Library.SELECTED_YEAR = Library.SELECTED_MAX.Year;
             }
         }
 
-        #region ElementEvents
-
-        private void tabPage_Schedule_Enter(object sender, EventArgs e)
+        private void LoadConfigCourseSelection()
         {
-            this.RefreshAbbreviationInfo();
-            this.FindBoundries();
-            this.CheckBoundries();
-            this.RefreshCalendar();
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            this.LoadConfigJSON();
-            this.RefreshUpdateLU();
-        }
-
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            this.SaveConfigJSON();
-        }
-
-        private void button_abbrInfo_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(Library.ABBRV_INFORMATION);
-        }
-
-        private void button_leftleft_Click(object sender, EventArgs e)
-        {
-            Library.SELECTED_YEAR = 0;
-            this.CheckBoundries();
-            this.RefreshCalendar();
-        }
-
-        private void button_rightright_Click(object sender, EventArgs e)
-        {
-            Library.SELECTED_YEAR = 9999;
-            this.CheckBoundries();
-            this.RefreshCalendar();
-        }
-
-        private void button_left_Click(object sender, EventArgs e)
-        {
-            Library.SELECTED_MONTH--;
-            if(Library.SELECTED_MONTH < 1)
+            foreach (string s in UEKVConfig.GetInstance().Subjects)
             {
-                Library.SELECTED_MONTH = 12;
-                Library.SELECTED_YEAR--;
-            }
-            this.CheckBoundries();
-            this.RefreshCalendar();
-        }
-
-        private void button_right_Click(object sender, EventArgs e)
-        {
-            Library.SELECTED_MONTH++;
-            if(Library.SELECTED_MONTH > 12)
-            {
-                Library.SELECTED_MONTH = 1;
-                Library.SELECTED_YEAR++;
-            }
-            this.CheckBoundries();
-            this.RefreshCalendar();
-        }
-
-        private void calendar_double_click(object sender, MouseEventArgs e)
-        {
-            RichTextBox rtb = (RichTextBox)sender;
-
-            rtb.Select(0, 2);
-            DateTime dt = new DateTime(Library.SELECTED_YEAR, Library.SELECTED_MONTH, int.Parse(rtb.SelectedText));
-
-            List<CourseEvent> cfd = GetCoursesForDay(dt);
-            cfd.Sort();
-
-            string info = $"{dt.ToString("yyyy-MM-dd")}\n";
-            foreach(CourseEvent c in cfd)
-            {
-                info += $"\n{c.StartS} to {c.EndS}; at {c.Location}: {c.Course.Subject} ({c.Type.Name} by {c.Teacher})";
-            }
-
-            FormInfo.Instance().AdjustForm(info);
-
-        }
-
-        private void button_update_Click(object sender, EventArgs e)
-        {
-            this.UpdateData();
-        }
-
-        private void tabControlMain_Deselecting(object sender, TabControlCancelEventArgs e)
-        {
-            if(this.tabControlMain.SelectedTab.Name == "tabPage_Update")
-            {
-                if(this.GetConfigJSON().LastUpdatedRaw().Ticks == 0)
-                {
-                    
-                    MessageBox.Show("Warning!\nThe data has to be updated at least once before the profile can be set or the calendar viewed!\n\nPlease refresh your data!");
-                    e.Cancel = true;
-                }
-                else if (!File.Exists(Library.DATA_PATH))
-                {
-                    
-                    MessageBox.Show("Warning!\nNo data file was found!\n\nPlease update your data now to use the tool!");
-                    e.Cancel = true;
-                }
-                else
-                {
-                    this.LoadConfigCourseSelection();
-                }
+                string subjectText = $"{s} ({Library.COURSE_MAIN_ABBRV[Library.COURSE_MAIN_SUBJ[s]]})";
+                int loc = this.checkedListBox_Profile.Items.IndexOf(subjectText);
+                this.checkedListBox_Profile.SetItemChecked(loc, true);
             }
         }
 
-        #endregion
 
         #region Config
 
-        private void LoadConfigJSON() {
+        private void LoadConfigJSON()
+        {
             if (!File.Exists(Library.CONFIG_PATH))
             {
                 this.SaveConfigJSON();
@@ -230,7 +136,8 @@ namespace UEK_VisualizeScheduleV2
             UEKVConfig.InitiateInstance(c);
         }
 
-        private UEKVConfig GetConfigJSON() {
+        private UEKVConfig GetConfigJSON()
+        {
             return UEKVConfig.GetInstance();
         }
 
@@ -245,7 +152,8 @@ namespace UEK_VisualizeScheduleV2
 
         #region Update
 
-        private void UpdateData(bool slow = true) {
+        private void UpdateData(bool slow = true)
+        {
             this.Enabled = false;
 
             try
@@ -253,7 +161,7 @@ namespace UEK_VisualizeScheduleV2
                 this.progressBar_Update.Value = 0;
                 this.progressBar_Update.PerformStep();
 
-                this.label_UpdateStatus.Text = "Downloading data...";this.Refresh();
+                this.label_UpdateStatus.Text = "Downloading data..."; this.Refresh();
                 this.DownloadRawData();
                 this.progressBar_Update.PerformStep();
                 Thread.Sleep(slow ? 1000 : 0);
@@ -289,7 +197,7 @@ namespace UEK_VisualizeScheduleV2
                 this.label_UpdateStatus.Text = "Finished Updating!"; this.Refresh();
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show($"An error occured during the update!\n\nMessage: {e.Message}\n\nUpdate incomplete!");
                 this.progressBar_Update.Value = 0;
@@ -302,9 +210,11 @@ namespace UEK_VisualizeScheduleV2
             this.Enabled = true;
         }
 
-        private void DownloadRawData() {
+        private void DownloadRawData()
+        {
+            //TODO Check if file exsists
             File.Delete(Library.DATA_PATH);
-            using(WebClient c = new WebClient())
+            using (WebClient c = new WebClient())
             {
                 c.DownloadFile(Library.DATA_URL, Library.DATA_PATH);
             }
@@ -335,7 +245,7 @@ namespace UEK_VisualizeScheduleV2
 
         private void SerializeRawData(List<CourseJSON> courseJSONs)
         {
-            foreach(CourseJSON cjson in courseJSONs)
+            foreach (CourseJSON cjson in courseJSONs)
             {
                 Library.SerializeCourseData(cjson);
             }
@@ -354,7 +264,7 @@ namespace UEK_VisualizeScheduleV2
         {
             this.checkedListBox_Profile.Items.Clear();
             Library.ALL_COURSE_MAIN.Sort();
-            foreach(CourseMain cm in Library.ALL_COURSE_MAIN)
+            foreach (CourseMain cm in Library.ALL_COURSE_MAIN)
             {
                 string text = $"{cm.Subject} ({Library.COURSE_MAIN_ABBRV[cm]})";
                 this.checkedListBox_Profile.Items.Add(text);
@@ -375,46 +285,6 @@ namespace UEK_VisualizeScheduleV2
             else
             {
                 this.label_LastUpdated.Text = this.GetConfigJSON().LastUpdated;
-            }
-        }
-
-        #endregion
-
-        #region Update Action
-        #endregion
-
-        #region Profile
-
-        private void LoadConfigCourseSelection()
-        {
-            foreach(string s in UEKVConfig.GetInstance().Subjects)
-            {
-                string subjectText = $"{s} ({Library.COURSE_MAIN_ABBRV[Library.COURSE_MAIN_SUBJ[s]]})";
-                int loc = this.checkedListBox_Profile.Items.IndexOf(subjectText);
-                this.checkedListBox_Profile.SetItemChecked(loc, true);
-            }
-        }
-
-        #endregion
-
-        #region Profile Action
-
-        private void checkedListBox_Profile_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            string subj = (((string)this.checkedListBox_Profile.Items[e.Index]).Split(new char[] {'(' }))[0].Trim();
-            if (e.NewValue == CheckState.Checked)
-            {
-                if (!UEKVConfig.GetInstance().Subjects.Contains(subj))
-                {
-                    UEKVConfig.GetInstance().Subjects.Add(subj);
-                }
-            }
-            else
-            {
-                if (UEKVConfig.GetInstance().Subjects.Contains(subj))
-                {
-                    UEKVConfig.GetInstance().Subjects.Remove(subj);
-                }
             }
         }
 
@@ -491,15 +361,15 @@ namespace UEK_VisualizeScheduleV2
             int col = CDayOfWeek(act.DayOfWeek);
             bool conflict;
 
-            for(int i = 0; i < col; i++)
+            for (int i = 0; i < col; i++)
             {
                 Library.ALL_CALENDAR_PANE[0][i].Visible = false;
                 Library.ALL_CALENDAR_PANE[0][i].Enabled = false;
             }
 
-            while( (act.Year == Library.SELECTED_YEAR) && (act.Month == Library.SELECTED_MONTH))
+            while ((act.Year == Library.SELECTED_YEAR) && (act.Month == Library.SELECTED_MONTH))
             {
-                if(col > 6)
+                if (col > 6)
                 {
                     col = 0;
                     row++;
@@ -515,7 +385,7 @@ namespace UEK_VisualizeScheduleV2
 
                 string cont = $"{act.ToString("dd")}";
 
-                foreach(CourseEvent ce in coursesForDay)
+                foreach (CourseEvent ce in coursesForDay)
                 {
                     cont += $"\n{ce.StartS}-{ce.EndS} {Library.COURSE_MAIN_ABBRV[ce.Course]}";
                 }
@@ -555,11 +425,11 @@ namespace UEK_VisualizeScheduleV2
             List<string> _tmp = UEKVConfig.GetInstance().Subjects;
             _tmp.Sort();
 
-            foreach(string s in _tmp)
+            foreach (string s in _tmp)
             {
                 Library.ABBRV_INFORMATION += $"\n{s} = {Library.COURSE_MAIN_ABBRV[Library.COURSE_MAIN_SUBJ[s]]}";
             }
-            
+
         }
 
         private bool IsDailyConflict(List<CourseEvent> cList)
@@ -595,26 +465,27 @@ namespace UEK_VisualizeScheduleV2
             return confCount > 0;
         }
 
-          private List<CourseEvent> GetCoursesForDay(DateTime dt)
+        private List<CourseEvent> GetCoursesForDay(DateTime dt)
         {
             List<CourseEvent> ret = new List<CourseEvent>();
             DateTime comp = new DateTime(dt.Year, dt.Month, dt.Day);
             List<CourseMain> relevantCourses = new List<CourseMain>();
-            foreach(string s in UEKVConfig.GetInstance().Subjects)
+            foreach (string s in UEKVConfig.GetInstance().Subjects)
             {
                 relevantCourses.Add(Library.COURSE_MAIN_SUBJ[s]);
             }
 
-            foreach(CourseEvent ce in Library.ALL_COURSE_EVENT)
+            foreach (CourseEvent ce in Library.ALL_COURSE_EVENT)
             {
-                if(ce.Date == comp && relevantCourses.Contains(ce.Course))
+                if (ce.Date == comp && relevantCourses.Contains(ce.Course))
                 {
                     ret.Add(ce);
                 }
             }
             return ret;
         }
-          private int CDayOfWeek(DayOfWeek day)
+        //TODO Remove legacy reference to method; use library function instead
+        private int CDayOfWeek(DayOfWeek day)
         {
             switch (day)
             {
@@ -630,6 +501,148 @@ namespace UEK_VisualizeScheduleV2
         }
 
         #endregion
-        
+
+        #region Event Handlers
+
+        private void checkedListBox_Profile_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            string subj = (((string)this.checkedListBox_Profile.Items[e.Index]).Split(new char[] { '(' }))[0].Trim();
+            if (e.NewValue == CheckState.Checked)
+            {
+                if (!UEKVConfig.GetInstance().Subjects.Contains(subj))
+                {
+                    UEKVConfig.GetInstance().Subjects.Add(subj);
+                }
+            }
+            else
+            {
+                if (UEKVConfig.GetInstance().Subjects.Contains(subj))
+                {
+                    UEKVConfig.GetInstance().Subjects.Remove(subj);
+                }
+            }
+        }
+
+        #region ElementEvents
+
+        private void tabPage_Schedule_Enter(object sender, EventArgs e)
+        {
+            this.RefreshAbbreviationInfo();
+            this.FindBoundries();
+            this.CheckBoundries();
+            this.RefreshCalendar();
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            this.LoadConfigJSON();
+            this.RefreshUpdateLU();
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.SaveConfigJSON();
+        }
+
+        private void button_abbrInfo_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(Library.ABBRV_INFORMATION);
+        }
+
+        private void button_leftleft_Click(object sender, EventArgs e)
+        {
+            Library.SELECTED_YEAR = 0;
+            this.CheckBoundries();
+            this.RefreshCalendar();
+        }
+
+        private void button_rightright_Click(object sender, EventArgs e)
+        {
+            Library.SELECTED_YEAR = 9999;
+            this.CheckBoundries();
+            this.RefreshCalendar();
+        }
+
+        private void button_left_Click(object sender, EventArgs e)
+        {
+            Library.SELECTED_MONTH--;
+            if (Library.SELECTED_MONTH < 1)
+            {
+                Library.SELECTED_MONTH = 12;
+                Library.SELECTED_YEAR--;
+            }
+            this.CheckBoundries();
+            this.RefreshCalendar();
+        }
+
+        private void button_right_Click(object sender, EventArgs e)
+        {
+            Library.SELECTED_MONTH++;
+            if (Library.SELECTED_MONTH > 12)
+            {
+                Library.SELECTED_MONTH = 1;
+                Library.SELECTED_YEAR++;
+            }
+            this.CheckBoundries();
+            this.RefreshCalendar();
+        }
+
+        private void calendar_double_click(object sender, MouseEventArgs e)
+        {
+            RichTextBox rtb = (RichTextBox)sender;
+
+            rtb.Select(0, 2);
+            DateTime dt = new DateTime(Library.SELECTED_YEAR, Library.SELECTED_MONTH, int.Parse(rtb.SelectedText));
+
+            List<CourseEvent> cfd = GetCoursesForDay(dt);
+            cfd.Sort();
+
+            string info = $"{dt.ToString("yyyy-MM-dd")}\n";
+            foreach (CourseEvent c in cfd)
+            {
+                info += $"\n{c.StartS} to {c.EndS}; at {c.Location}: {c.Course.Subject} ({c.Type.Name} by {c.Teacher})";
+            }
+
+            FormInfo.Instance().AdjustForm(info);
+
+        }
+
+        private void button_update_Click(object sender, EventArgs e)
+        {
+            this.UpdateData();
+        }
+
+        //TODO Redo load of course selection (possible unnesessary load)
+        private void tabControlMain_Deselecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (this.tabControlMain.SelectedTab.Name == "tabPage_Update")
+            {
+                if (this.GetConfigJSON().LastUpdatedRaw().Ticks == 0)
+                {
+
+                    MessageBox.Show("Warning!\nThe data has to be updated at least once before the profile can be set or the calendar viewed!\n\nPlease refresh your data!");
+                    e.Cancel = true;
+                }
+                else if (!File.Exists(Library.DATA_PATH))
+                {
+
+                    MessageBox.Show("Warning!\nNo data file was found!\n\nPlease update your data now to use the tool!");
+                    e.Cancel = true;
+                }
+                else
+                {
+                    this.LoadConfigCourseSelection();
+                }
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
     }
 }
