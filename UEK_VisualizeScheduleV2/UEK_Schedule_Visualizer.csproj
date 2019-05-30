@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3783E50E-25ED-484A-9DF5-03B1094521DD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>UEK_VisualizeScheduleV2</RootNamespace>
-    <AssemblyName>UEK_VisualizeScheduleV2</AssemblyName>
+    <RootNamespace>UEK_Schedule_Visualizer</RootNamespace>
+    <AssemblyName>UEK_Schedule_Visualizer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -110,6 +110,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -121,7 +122,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="UEK_VisualizeScheduleV2_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -137,6 +137,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UEK_Schedule_Visualizer.ClassLibrary\UEK_Schedule_Visualizer_ClassLibrary.csproj">
+      <Project>{d96ab5c8-46db-457f-89ba-5214c163bb40}</Project>
+      <Name>UEK_Schedule_Visualizer_ClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

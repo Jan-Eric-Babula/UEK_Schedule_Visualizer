@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace UEK_VisualizeScheduleV2
+namespace UEK_Schedule_Visualizer
 {
     public partial class FormInfo : Form
     {

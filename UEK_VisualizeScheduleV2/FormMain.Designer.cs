@@ -1,4 +1,4 @@
-﻿namespace UEK_VisualizeScheduleV2
+﻿namespace UEK_Schedule_Visualizer
 {
     partial class FormMain
     {

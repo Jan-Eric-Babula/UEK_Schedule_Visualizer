@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UEK_VisualizeScheduleV2
+namespace UEK_Schedule_Visualizer
 {
     static class Program
     {

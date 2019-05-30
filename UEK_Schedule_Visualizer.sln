@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UEK_VisualizeScheduleV2", "UEK_VisualizeScheduleV2\UEK_VisualizeScheduleV2.csproj", "{3783E50E-25ED-484A-9DF5-03B1094521DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UEK_Schedule_Visualizer", "UEK_VisualizeScheduleV2\UEK_Schedule_Visualizer.csproj", "{3783E50E-25ED-484A-9DF5-03B1094521DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UEK_Schedule_Visualizer_ClassLibrary", "UEK_Schedule_Visualizer.ClassLibrary\UEK_Schedule_Visualizer_ClassLibrary.csproj", "{D96AB5C8-46DB-457F-89BA-5214C163BB40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3783E50E-25ED-484A-9DF5-03B1094521DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3783E50E-25ED-484A-9DF5-03B1094521DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3783E50E-25ED-484A-9DF5-03B1094521DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D96AB5C8-46DB-457F-89BA-5214C163BB40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96AB5C8-46DB-457F-89BA-5214C163BB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96AB5C8-46DB-457F-89BA-5214C163BB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96AB5C8-46DB-457F-89BA-5214C163BB40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

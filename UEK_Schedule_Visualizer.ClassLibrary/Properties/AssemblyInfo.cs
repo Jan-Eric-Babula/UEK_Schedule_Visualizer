@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UEK_Schedule_Visualizer")]
+[assembly: AssemblyTitle("UEK_Schedule_Visualizer.ClassLibrary")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UEK_Schedule_Visualizer")]
+[assembly: AssemblyProduct("UEK_Schedule_Visualizer.ClassLibrary")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3783e50e-25ed-484a-9df5-03b1094521dd")]
+[assembly: Guid("d96ab5c8-46db-457f-89ba-5214c163bb40")]
 
 // Version information for an assembly consists of the following four values:
 //

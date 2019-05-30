@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UEK_VisualizeScheduleV2
+namespace UEK_Schedule_Visualizer
 {
     /// <summary>
     /// Class to represent and hold working data of program config file.

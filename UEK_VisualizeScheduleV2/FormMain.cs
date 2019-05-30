@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Threading;
 
-namespace UEK_VisualizeScheduleV2
+namespace UEK_Schedule_Visualizer
 {
     //TODO Add documentation
     /// <summary>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UEK_VisualizeScheduleV2
+namespace UEK_Schedule_Visualizer
 {
     //TODO Add hash creation override
     /// <summary>

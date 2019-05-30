@@ -5,7 +5,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 
-namespace UEK_VisualizeScheduleV2
+namespace UEK_Schedule_Visualizer
 {
     /// <summary>
     /// Holds constants, instances and helper functions.
