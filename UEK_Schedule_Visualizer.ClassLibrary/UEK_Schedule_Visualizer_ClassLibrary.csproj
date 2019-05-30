@@ -7,8 +7,8 @@
     <ProjectGuid>{D96AB5C8-46DB-457F-89BA-5214C163BB40}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UEK_Schedule_Visualizer.ClassLibrary</RootNamespace>
-    <AssemblyName>UEK_Schedule_Visualizer.ClassLibrary</AssemblyName>
+    <RootNamespace>UEK_Schedule_Visualizer_ClassLibrary</RootNamespace>
+    <AssemblyName>UEK_Schedule_Visualizer_ClassLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
