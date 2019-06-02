@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace UEK_Schedule_Visualizer_ClassLibrary
 {
+    //TODO Add documentation
     class Config
     {
 
@@ -19,27 +24,27 @@ namespace UEK_Schedule_Visualizer_ClassLibrary
             }
         }
 
-        public static DateTime LastUpdated
+        public DateTime LastUpdated
         {
             get;
             set;
         }
 
-        public static string LastUpdatedString
+        public string LastUpdatedString
         {
             get
             {
                 //TODO Replace with library/helper method
-                return Config.LastUpdated.ToString("yyyy-MM-dd");
+                return Config.Instance.LastUpdated.ToString("yyyy-MM-dd");
             }
             set
             {
-                Config.LastUpdated = DateTime.Parse(value);
+                Config.Instance.LastUpdated = DateTime.Parse(value);
             }
         }
 
         //TODO References to subject objects (directly)
-        public static List<object> SubjectList
+        public List<object> SubjectList
         {
             get;
             private set;
@@ -57,8 +62,8 @@ namespace UEK_Schedule_Visualizer_ClassLibrary
 
         private Config()
         {
-            Config.LastUpdated = new DateTime(0);
-            Config.SubjectList = null;
+            this.LastUpdated = new DateTime(0);
+            this.SubjectList = null;
         }
 
         #endregion
@@ -67,13 +72,59 @@ namespace UEK_Schedule_Visualizer_ClassLibrary
 
         public static bool IsConfigLoaded()
         {
-            return Config.SubjectList != null;
+            return Config.Instance.SubjectList != null;
         }
 
-        public static void LoadConfigFromFile()
+        private static void InitConfigToFile()
+        {
+            InternalConfig emptyConfig = new InternalConfig();
+            emptyConfig.LastUpdated = (new DateTime(0)).ToString("yyyy-MM-dd");
+            emptyConfig.SubjectList = new List<string>();
+
+            string emptyConfigJson = JsonConvert.SerializeObject(emptyConfig, Formatting.Indented);
+            File.WriteAllText("<path>", emptyConfigJson, Encoding.UTF8);
+        }
+
+        //TODO Streamline
+        public static void LoadConfigFromFile(int recursionIndex = 0)
         {
             if (!Config.IsConfigLoaded())
             {
+                if (!File.Exists("<path>"))
+                {
+                    Config.InitConfigToFile();
+                }
+
+                string configJson;
+                InternalConfig rawConfig;
+
+                try
+                {
+                    configJson = File.ReadAllText("<path>", Encoding.UTF8);
+                    rawConfig = JsonConvert.DeserializeObject<InternalConfig>(configJson);
+                }
+                catch (Exception e)
+                {
+                    Thread.Sleep(250);
+                    if(recursionIndex < 4)
+                    {
+                        Config.LoadConfigFromFile(recursionIndex + 1);
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            $"An error occured loading the configuration file!\n" + 
+                            $"{e.Message}\n{e.StackTrace}"
+                        );
+                        rawConfig = new InternalConfig();
+                        rawConfig.LastUpdated = (new DateTime(0)).ToString("yyyy-MM-dd");
+                        rawConfig.SubjectList = new List<string>();
+                    }
+                }
+                finally
+                {
+                    //Config.Instance.SubjectList = rawConfig.SubjectList
+                }
 
             }
             else
@@ -86,7 +137,7 @@ namespace UEK_Schedule_Visualizer_ClassLibrary
 
         #endregion
 
-        #region Nested Class
+        #region Nested Classes
 
         /// <summary>
         /// Object for serializing and deserialing json config file from and into.
