@@ -46,10 +46,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Elements\ElementClass.cs" />
+    <Compile Include="Elements\ElementInstancesFiltered.cs" />
+    <Compile Include="Elements\ElementInstancesRaw.cs" />
+    <Compile Include="Elements\ElementRaw.cs" />
+    <Compile Include="Elements\ElementSubject.cs" />
+    <Compile Include="Elements\ElementType.cs" />
+    <Compile Include="Forms\EventHandler.cs" />
+    <Compile Include="Forms\Helper.cs" />
+    <Compile Include="Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

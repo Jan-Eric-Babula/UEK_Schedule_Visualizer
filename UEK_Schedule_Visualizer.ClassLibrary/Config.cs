@@ -14,7 +14,19 @@ namespace UEK_Schedule_Visualizer_ClassLibrary
     class Config
     {
 
-        #region Properties
+        public DateTime LastUpdated
+        {
+            get;
+            private set;
+        }
+
+        public List<string> SelectedSubjectHashes
+        {
+            get;
+            private set;
+        }
+
+        private static readonly Config instance = new Config();
 
         public static Config Instance
         {
@@ -24,55 +36,18 @@ namespace UEK_Schedule_Visualizer_ClassLibrary
             }
         }
 
-        public DateTime LastUpdated
-        {
-            get;
-            set;
-        }
-
-        public string LastUpdatedString
-        {
-            get
-            {
-                //TODO Replace with library/helper method
-                return this.LastUpdated.ToString("yyyy-MM-dd");
-            }
-            set
-            {
-                this.LastUpdated = DateTime.Parse(value);
-            }
-        }
-
-        //TODO References to subject objects (directly)
-        public List<object> SubjectList
-        {
-            get;
-            private set;
-        }
-
-        #endregion
-
-        #region Instances
-
-        private static readonly Config instance = new Config();
-
-        #endregion
-
-        #region Constructors
-
         private Config()
         {
-            this.LastUpdated = new DateTime(0);
-            this.SubjectList = null;
+            this.LastUpdated = default(DateTime);
+            this.SelectedSubjectHashes = null;
         }
-
-        #endregion
-
+        
+        /*
         #region Functions
 
         public static bool IsConfigLoaded()
         {
-            return Config.Instance.SubjectList != null;
+            return Config.Instance.SelectedSubjectHashes != null && Config.Instance.LastUpdated != default(DateTime);
         }
 
         private static void InitConfigToFile()
@@ -136,8 +111,7 @@ namespace UEK_Schedule_Visualizer_ClassLibrary
         public static void SaveConfigToFile() { }
 
         #endregion
-
-        #region Nested Classes
+        */
 
         /// <summary>
         /// Object for serializing and deserialing json config file from and into.
@@ -145,10 +119,8 @@ namespace UEK_Schedule_Visualizer_ClassLibrary
         private class InternalConfig
         {
             public string LastUpdated;
-            public List<string> SubjectList;
+            public List<string> Subjects;
         }
-
-        #endregion
 
     }
 
