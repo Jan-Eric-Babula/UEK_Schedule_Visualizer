@@ -35,11 +35,11 @@ namespace UEK_Schedule_Visualizer_ClassLibrary
             get
             {
                 //TODO Replace with library/helper method
-                return Config.Instance.LastUpdated.ToString("yyyy-MM-dd");
+                return this.LastUpdated.ToString("yyyy-MM-dd");
             }
             set
             {
-                Config.Instance.LastUpdated = DateTime.Parse(value);
+                this.LastUpdated = DateTime.Parse(value);
             }
         }
 
